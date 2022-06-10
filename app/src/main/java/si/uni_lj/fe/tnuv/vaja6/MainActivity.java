@@ -25,9 +25,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import si.uni_lj.fe.tnuv.vaja6.adapters.RestaurantListAdapter;
 import si.uni_lj.fe.tnuv.vaja6.model.RestaurantModel;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements RestaurantListAdapter.RestaurantListClickListener {
 
     private String url;
 
@@ -38,22 +39,23 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Restaurant List");
+        actionBar.setTitle("Seznam Restavracij");
 
         List<RestaurantModel> restaurantModelList =  getRestaurantData();
 
-        url = getResources().getString(R.string.urlNaslov);
+     //   url = getResources().getString(R.string.urlNaslov);
 
-        initRecycleView();
+        initRecycleView(restaurantModelList);
 
     }
 
-    private void initRecycleView(){
+    private void initRecycleView(List<RestaurantModel> restaurantModelList){
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RestaurantListAdapter adapter = new RestaurantListAdapter(restaurantModelList, this);
 
 
-        recyclerView.setAdapter();
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -107,4 +109,8 @@ public class MainActivity extends AppCompatActivity{
         return restList;
     }
 
+    @Override
+    public void onItemCLick(RestaurantModel restaurantModel) {
+
+    }
 }

@@ -9,7 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
+
+import javax.microedition.khronos.opengles.GL;
 
 import si.uni_lj.fe.tnuv.vaja6.R;
 import si.uni_lj.fe.tnuv.vaja6.model.RestaurantModel;
@@ -17,9 +21,11 @@ import si.uni_lj.fe.tnuv.vaja6.model.RestaurantModel;
 public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAdapter.MyViewHolder> {
 
     private List<RestaurantModel> restaurantModelList;
+    private RestaurantListClickListener clickListener;
 
-    public RestaurantListAdapter(List<RestaurantModel> restaurantModelList){
+    public RestaurantListAdapter(List<RestaurantModel> restaurantModelList, RestaurantListClickListener clickListener){
         this.restaurantModelList = restaurantModelList;
+        this.clickListener = clickListener;
 
     }
     public void updateData(List<RestaurantModel> restaurantModelList){
@@ -37,6 +43,22 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantListAdapter.MyViewHolder holder, int position) {
+        holder.restaurantName.setText(restaurantModelList.get(position).getImage());
+        holder.restaurantAddress.setText("Naslov: "+restaurantModelList.get(position).getAddress());
+        holder.restaurantHours.setText("Današnji delovni čas: "+restaurantModelList.get(position).getHours().getTodaysHours());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickListener.onItemCLick(restaurantModelList.get(position));
+            }
+        });
+
+        Glide.with(holder.thumbImage)
+                .load(restaurantModelList.get(position).getImage())
+                .into(holder.thumbImage);
+
+
 
     }
 
@@ -60,5 +82,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             thumbImage = view.findViewById(R.id.thumbImage);
 
         }
+    }
+    public interface RestaurantListClickListener{
+        public void onItemCLick(RestaurantModel restaurantModel);
     }
 }
