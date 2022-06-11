@@ -1,14 +1,21 @@
 package si.uni_lj.fe.tnuv.vaja6;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import si.uni_lj.fe.tnuv.vaja6.adapters.MenuListAdapter;
@@ -18,6 +25,10 @@ import si.uni_lj.fe.tnuv.vaja6.model.RestaurantModel;
 public class RestaurantMenuActivity extends AppCompatActivity implements MenuListAdapter.MenuListClickListener{
      private List<Menu> menuList = null;
      private MenuListAdapter menuListAdapter;
+    private List<Menu> itemsInCartList;
+    private int totalItemInCart = 0;
+    private TextView buttonCheckout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +45,18 @@ public class RestaurantMenuActivity extends AppCompatActivity implements MenuLis
         menuList = restaurantModel.getMenus();
         initRecyclerView();
 
-        TextView buttonCheckout = findViewById(R.id.buttonCheckout);
+        buttonCheckout = findViewById(R.id.buttonCheckout);
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(itemsInCartList != null && itemsInCartList.size() <= 0) {
+                    Toast.makeText(RestaurantMenuActivity.this, "Dodajte produkte v košarico.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                restaurantModel.setMenus(itemsInCartList);
+                Intent i = new Intent(RestaurantMenuActivity.this, PlaceYourOrderActivity.class);
+                i.putExtra("RestaurantModel", restaurantModel);
+                startActivityForResult(i, 1000);
 
             }
         });
@@ -52,6 +71,69 @@ public class RestaurantMenuActivity extends AppCompatActivity implements MenuLis
 
     @Override
     public void onAddToCartClick(Menu menu) {
+        if(itemsInCartList == null) {
+            itemsInCartList = new ArrayList<>();
+        }
+        itemsInCartList.add(menu);
+        totalItemInCart = 0;
 
+        for(Menu m : itemsInCartList) {
+            totalItemInCart = totalItemInCart + m.getTotalInCart();
+        }
+        buttonCheckout.setText("Naroči (" +totalItemInCart +") produktov");
+
+    }
+
+    @Override
+    public void onUpdateCartClick(Menu menu) {
+        if(itemsInCartList.contains(menu)) {
+            int index = itemsInCartList.indexOf(menu);
+            itemsInCartList.remove(index);
+            itemsInCartList.add(index, menu);
+
+            totalItemInCart = 0;
+
+            for(Menu m : itemsInCartList) {
+                totalItemInCart = totalItemInCart + m.getTotalInCart();
+            }
+            buttonCheckout.setText("Naroči (" +totalItemInCart +") produktov");
+        }
+
+    }
+
+    @Override
+    public void onRemoveFromCartClick(Menu menu) {
+        if(itemsInCartList.contains(menu)) {
+            itemsInCartList.remove(menu);
+            totalItemInCart = 0;
+
+            for(Menu m : itemsInCartList) {
+                totalItemInCart = totalItemInCart + m.getTotalInCart();
+            }
+            buttonCheckout.setText("Naroči (" +totalItemInCart +") produktov");
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home :
+                finish();
+            default:
+                //do nothing
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1000 && resultCode == Activity.RESULT_OK) {
+            //
+            finish();
+        }
     }
 }
