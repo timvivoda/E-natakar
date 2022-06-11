@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -111,6 +112,11 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
 
     @Override
     public void onItemCLick(RestaurantModel restaurantModel) {
+
+        Intent intent = new Intent(MainActivity.this, RestaurantMenuActivity.class);
+        intent.putExtra("RestaurantModel", restaurantModel);
+        startActivity(intent);
+
 
     }
 }
