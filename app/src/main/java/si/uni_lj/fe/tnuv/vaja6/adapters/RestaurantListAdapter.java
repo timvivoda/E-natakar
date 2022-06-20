@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.util.List;
 
@@ -84,6 +85,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         }
     }
     public interface RestaurantListClickListener{
+        void onMapReady(@NonNull GoogleMap googleMap);
+
         public void onItemCLick(RestaurantModel restaurantModel);
     }
 }

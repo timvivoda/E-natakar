@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="si.uni_lj.fe.tnuv.vaja6">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="si.uni_lj.fe.tnuv.vaja6"
+    tools:ignore="CoarseFineLocation">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="CoarseFineLocation" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -13,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vaja6"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDo7Wl_6nYJan40vfyir-MfVJrAxbRY1Hc"></meta-data>
+
         <activity
             android:name=".OrderSuccessActivity"
             android:exported="false" />
