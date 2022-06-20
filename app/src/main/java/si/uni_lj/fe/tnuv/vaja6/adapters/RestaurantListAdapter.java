@@ -45,7 +45,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
     public void onBindViewHolder(@NonNull RestaurantListAdapter.MyViewHolder holder, int position) {
         holder.restaurantName.setText(restaurantModelList.get(position).getName());
         holder.restaurantAddress.setText("Naslov: "+restaurantModelList.get(position).getAddress());
-        holder.restaurantHours.setText("Današnji delovni čas: "+restaurantModelList.get(position).getHours().getTodaysHours());
+        holder.restaurantHours.setText("Današnji delovni čas: \n"+restaurantModelList.get(position).getHours().getTodaysHours());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         return restaurantModelList.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView restaurantName;
         TextView restaurantAddress;
         TextView restaurantHours;
