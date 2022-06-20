@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlaceYourOrderActivity"
+    android:background="@color/purple_200"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -157,16 +158,18 @@
             android:inputType="number"
             android:maxLength="3"/>
 
-        <TextView android:id="@+id/tvTotalItems"
+        <TextView
+            android:id="@+id/tvTotalItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputCardPin"
             android:layout_margin="10dp"
             android:text="Košarica"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/cartItemsRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputCardPin" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartItemsRecyclerView"
@@ -184,17 +187,17 @@
             app:layout_constraintTop_toBottomOf="@+id/cartItemsRecyclerView"
             android:layout_margin="10dp"
             android:text="Skupaj"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
         <TextView android:id="@+id/tvSubtotalAmount"
-            android:layout_width="wrap_content"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cartItemsRecyclerView"
             android:layout_margin="10dp"
             android:text="€0.0"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
         <TextView android:id="@+id/tvDeliveryCharge"
@@ -204,38 +207,41 @@
             app:layout_constraintTop_toBottomOf="@+id/tvSubtotal"
             android:layout_margin="10dp"
             android:text="Dostava"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"/>
 
-        <TextView android:id="@+id/tvDeliveryChargeAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSubtotal"
+        <TextView
+            android:id="@+id/tvDeliveryChargeAmount"
+            android:layout_width="64dp"
+            android:layout_height="21dp"
             android:layout_margin="10dp"
             android:text="€0.0"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubtotal" />
 
-        <TextView android:id="@+id/tvTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDeliveryCharge"
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="210dp"
+            android:layout_height="30dp"
             android:layout_margin="10dp"
             android:text="Skupni znesek za plačilo"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeliveryCharge" />
 
-        <TextView android:id="@+id/tvTotalAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDeliveryCharge"
+        <TextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="64dp"
+            android:layout_height="21dp"
             android:layout_margin="10dp"
             android:text="€0.0"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeliveryCharge" />
 
         <TextView android:id="@+id/buttonPlaceYourOrder"
             android:layout_width="match_parent"
@@ -244,6 +250,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotal"
             android:text="Naroči"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             android:gravity="center"

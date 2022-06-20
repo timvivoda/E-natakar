@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple_200"
     tools:context=".RestaurantMenuActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="Košarica"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         android:gravity="center"
