@@ -30,7 +30,8 @@
             android:value="AIzaSyDo7Wl_6nYJan40vfyir-MfVJrAxbRY1Hc"></meta-data>
         <activity
             android:name=".MapActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".OrderSuccessActivity"
             android:exported="false" />
