@@ -112,16 +112,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
         for (int i = 0; i < arrayList.size(); i++) {
             mMap.addMarker(new MarkerOptions().position(arrayList.get(i)).title("Restavracija "+arrayListS.get(i)));
-            //mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
+
         }
 
-        /*Location location = null;
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions options = new MarkerOptions().position(latLng).title("Tukaj!");
-        mMap.addMarker(options);
-        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18), 5000, null);*/
+
+        float zoomLevel = 11.0f; //This goes up to 21
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(azur, zoomLevel));
 
     }
 
