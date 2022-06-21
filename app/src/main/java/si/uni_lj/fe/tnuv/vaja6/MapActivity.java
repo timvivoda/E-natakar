@@ -74,11 +74,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     ArrayList<LatLng> arrayList = new ArrayList<>();
+    ArrayList<String> arrayListS = new ArrayList<>();
 
     LatLng azur = new LatLng(46.045690747117476, 14.473345684657135);
     LatLng spar = new LatLng(46.03958620504355, 14.476320117832323);
     LatLng mc = new LatLng(46.0759634013417, 14.484136854069007);
     LatLng hood = new LatLng(46.0389707888777, 14.47582012708236);
+    String azurS = new String("Azur");
+    String sparS = new String("Spar");
+    String mcS = new String("McDonalds Šiška");
+    String hoodS = new String("Hood Burger");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         arrayList.add(spar);
         arrayList.add(mc);
         arrayList.add(hood);
+        arrayListS.add(azurS);
+        arrayListS.add(sparS);
+        arrayListS.add(mcS);
+        arrayListS.add(hoodS);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Lokacije");
@@ -102,7 +111,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         for (int i = 0; i < arrayList.size(); i++) {
-            mMap.addMarker(new MarkerOptions().position(arrayList.get(i)).title("Restavracija"));
+            mMap.addMarker(new MarkerOptions().position(arrayList.get(i)).title("Restavracija "+arrayListS.get(i)));
             //mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
             //mMap.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
         }

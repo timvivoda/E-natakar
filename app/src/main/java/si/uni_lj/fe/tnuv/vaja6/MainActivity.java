@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
 
         List<RestaurantModel> restaurantModelList = getRestaurantData();
 
-        //url = getResources().getString(R.string.urlNaslov);
 
         initRecycleView(restaurantModelList);
 
@@ -168,29 +167,11 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
         super.onStart();
 
 
-  /*     PrenosPodatkov pp = new PrenosPodatkov(url, this);
 
-        new Thread(){
-            @Override
-            public void run() {
-                String rezultat = pp.prenesiPodatke();
-                runOnUiThread(() -> prikaziPodatke(rezultat));
-                //prikaziPodatke(rezultat);
-            }
-        }.start();
-*/
 
     }
 
- /*   private void prikaziPodatke(String podatki){
-        ArrayList<HashMap<String, String>> seznamKontaktov = new ContactsJsonParser().parseToArrayList(podatki);
 
-        SimpleAdapter adapter = new SimpleAdapter(this, seznamKontaktov, R.layout.list_item, new String[]{"name","email","mobile"}, new int[]{R.id.name,R.id.email,R.id.mobile});
-        ListView lv = findViewById(R.id.list);
-        lv.setAdapter(adapter);
-        //Toast.makeText(this, podatki, Toast.LENGTH_LONG).show();
-    }
-*/
     private List<RestaurantModel> getRestaurantData() {
         InputStream is = getResources().openRawResource(R.raw.restaurent);
         Writer writer = new StringWriter();
