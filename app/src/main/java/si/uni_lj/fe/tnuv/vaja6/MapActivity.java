@@ -13,6 +13,7 @@ import android.Manifest;
 import android.content.AsyncQueryHandler;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
@@ -40,6 +41,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,6 +58,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
 import si.uni_lj.fe.tnuv.vaja6.adapters.RestaurantListAdapter;
 import si.uni_lj.fe.tnuv.vaja6.model.RestaurantModel;
 
@@ -64,7 +67,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
 
-public class MapActivity extends AppCompatActivity implements RestaurantListAdapter.RestaurantListClickListener, OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     SupportMapFragment supportMapFragment;
     private static final int Request_code = 101;
@@ -82,8 +85,7 @@ public class MapActivity extends AppCompatActivity implements RestaurantListAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().
-                findFragmentById(R.id.maps);
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
         supportMapFragment.getMapAsync(this);
 
         arrayList.add(azur);
@@ -91,22 +93,9 @@ public class MapActivity extends AppCompatActivity implements RestaurantListAdap
         arrayList.add(mc);
         arrayList.add(hood);
 
-
-        if (ActivityCompat.checkSelfPermission(MapActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            getCurrentLocation();
-        } else {
-            ActivityCompat.requestPermissions(MapActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Lokacije");
 
-        List<RestaurantModel> restaurantModelList = getRestaurantData();
-
-        //url = getResources().getString(R.string.urlNaslov);
     }
 
     @Override
@@ -114,16 +103,17 @@ public class MapActivity extends AppCompatActivity implements RestaurantListAdap
         mMap = googleMap;
         for (int i = 0; i < arrayList.size(); i++) {
             mMap.addMarker(new MarkerOptions().position(arrayList.get(i)).title("Restavracija"));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
+            //mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
         }
 
-        /*LatLng latLng = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
-                            MarkerOptions options = new MarkerOptions().position(latLng).
-                                    title("Tukaj!");
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                            googleMap.addMarker(options);*/
+        /*Location location = null;
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions options = new MarkerOptions().position(latLng).title("Tukaj!");
+        mMap.addMarker(options);
+        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18), 5000, null);*/
+
     }
 
     private void getCurrentLocation() {
@@ -154,49 +144,5 @@ public class MapActivity extends AppCompatActivity implements RestaurantListAdap
     @Override
     protected void onStart() {
         super.onStart();
-  /*     PrenosPodatkov pp = new PrenosPodatkov(url, this);
-        new Thread(){
-            @Override
-            public void run() {
-                String rezultat = pp.prenesiPodatke();
-                runOnUiThread(() -> prikaziPodatke(rezultat));
-                //prikaziPodatke(rezultat);
-            }
-        }.start();
-*/
-    }
-
-    /*   private void prikaziPodatke(String podatki){
-           ArrayList<HashMap<String, String>> seznamKontaktov = new ContactsJsonParser().parseToArrayList(podatki);
-           SimpleAdapter adapter = new SimpleAdapter(this, seznamKontaktov, R.layout.list_item, new String[]{"name","email","mobile"}, new int[]{R.id.name,R.id.email,R.id.mobile});
-           ListView lv = findViewById(R.id.list);
-           lv.setAdapter(adapter);
-           //Toast.makeText(this, podatki, Toast.LENGTH_LONG).show();
-       }
-   */
-    private List<RestaurantModel> getRestaurantData() {
-        InputStream is = getResources().openRawResource(R.raw.restaurent);
-        Writer writer = new StringWriter();
-        char[] buffer = new char[1024];
-        try {
-            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            int n;
-            while ((n = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, n);
-            }
-        } catch (Exception e) {
-        }
-        String jsonStr = writer.toString();
-        Gson gson = new Gson();
-        RestaurantModel[] restaurantModels = gson.fromJson(jsonStr, RestaurantModel[].class);
-        List<RestaurantModel> restList = Arrays.asList(restaurantModels);
-        return restList;
-    }
-
-    @Override
-    public void onItemCLick(RestaurantModel restaurantModel) {
-        Intent intent = new Intent(MapActivity.this, RestaurantMenuActivity.class);
-        intent.putExtra("RestaurantModel", restaurantModel);
-        startActivity(intent);
     }
 }
