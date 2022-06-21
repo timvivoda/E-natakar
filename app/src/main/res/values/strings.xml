@@ -3,4 +3,5 @@
     <string name="napaka_omrezje">Omrežje ni na voljo.</string>
     <string name="napaka_povezava">Vzpostavitev povezave s strežnikom ni uspela.</string>
     <string name="urlNaslov">http://www.lait.fe.uni-lj.si/gradiva/tnuv/contacts.json</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

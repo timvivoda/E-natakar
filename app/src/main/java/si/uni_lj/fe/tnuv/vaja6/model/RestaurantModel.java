@@ -14,6 +14,10 @@ public class RestaurantModel implements Parcelable {
     private Hours hours;
     private List<Menu> menus;
 
+    public RestaurantModel() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -62,7 +66,7 @@ public class RestaurantModel implements Parcelable {
         this.menus = menus;
     }
 
-    protected RestaurantModel(Parcel in) {
+    public RestaurantModel(Parcel in) {
         name = in.readString();
         address = in.readString();
         image = in.readString();
