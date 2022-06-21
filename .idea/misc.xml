@@ -22,6 +22,12 @@
         <entry key="..\:/Users/timvi/AndroidStudioProjects/E-natakar_v2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1545" />
         <entry key="..\:/Users/timvi/AndroidStudioProjects/Vaja62/app/src/main/res/layout/activity_main.xml" value="0.286231884057971" />
         <entry key="..\:/Users/timvi/AndroidStudioProjects/Vaja62/app/src/main/res/layout/list_item.xml" value="0.286231884057971" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_place_your_order.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/menu_recycler_row.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recycler_row.xml" value="0.1" />
       </map>
     </option>
   </component>

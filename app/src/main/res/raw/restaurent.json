@@ -36,7 +36,7 @@
           "url": "https://www.spendwithpennies.com/wp-content/uploads/2013/10/Cheese-Sticks-SpendWithPennies-2-21-500x500.jpg"
         },
         {
-          "name": "CHICKEN FINGER Burger",
+          "name": "Chicken Burger",
           "price": 4.00,
           "url": "https://api.thelevelup.com/v15/order_ahead/menu_image_stores/70461/image?density=3&height=300&width=420"
         },
@@ -203,7 +203,7 @@
     },
     "menus": [
       {
-        "name": "CHICKEN FINGER Burger",
+        "name": "Chicken Finger Burger",
         "price": 4.00,
         "url": "https://api.thelevelup.com/v15/order_ahead/menu_image_stores/70461/image?density=3&height=300&width=420"
       },

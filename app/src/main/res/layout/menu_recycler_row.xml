@@ -8,16 +8,17 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="270dp"
+        app:cardElevation="5dp"
         app:cardCornerRadius="10dp"
-        android:layout_margin="8dp"
-        app:cardMaxElevation="20dp"
-        >
-
-
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardMaxElevation="6dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,8 +36,8 @@
             />
     <TextView android:id="@+id/menuName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:layout_height="50dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginStart="10dp"
@@ -51,7 +52,8 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="05dp"
+        android:layout_marginBottom="3dp"
         />
 
     <TextView android:id="@+id/addToCartButton"
@@ -64,7 +66,7 @@
         android:layout_marginEnd="10dp"
         android:text="Dodaj v košarico"
         android:background="@drawable/button_bg"
-        android:layout_margin="05dp"
+        android:layout_margin="3dp"
         android:padding="10dp"
         android:layout_gravity="center_horizontal"
         />
