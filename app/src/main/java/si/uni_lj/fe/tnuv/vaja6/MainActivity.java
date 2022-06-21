@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -56,16 +57,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import si.uni_lj.fe.tnuv.vaja6.adapters.RestaurantListAdapter;
 import si.uni_lj.fe.tnuv.vaja6.model.RestaurantModel;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-
-
-public class MainActivity extends AppCompatActivity implements RestaurantListAdapter.RestaurantListClickListener, OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements RestaurantListAdapter.RestaurantListClickListener {
 
     String result = "";
 
@@ -73,42 +70,10 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
     RecyclerView recyclerView;
     TextView textView;
 
-    SupportMapFragment supportMapFragment;
-    FusedLocationProviderClient client;
-    private static final int Request_code = 101;
-    private GoogleMap mMap;
-    ArrayList<LatLng>arrayList = new ArrayList<>();
-
-    LatLng azur = new LatLng(46.045690747117476, 14.473345684657135 );
-    LatLng spar = new LatLng(46.03958620504355, 14.476320117832323);
-    LatLng mc = new LatLng(46.0759634013417, 14.484136854069007);
-    LatLng hood = new LatLng(46.0389707888777, 14.47582012708236);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.textView);
-
-        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().
-                findFragmentById(R.id.maps);
-        supportMapFragment.getMapAsync(this);
-
-        arrayList.add(azur);
-        arrayList.add(spar);
-        arrayList.add(mc);
-        arrayList.add(hood);
-
-        client = LocationServices.getFusedLocationProviderClient(this);
-
-        if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            getCurrentLocation();
-        } else {
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Seznam Restavracij");
@@ -120,44 +85,11 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
         initRecycleView(restaurantModelList);
 
         new jsonTask().execute();
-
-    }
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
-        for (int i = 0; i < arrayList.size(); i++){
-            mMap.addMarker(new MarkerOptions().position(arrayList.get(i)).title("Restavracija"));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
-        }
-
-        /*LatLng latLng = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
-
-                            MarkerOptions options = new MarkerOptions().position(latLng).
-                                    title("Tukaj!");
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                            googleMap.addMarker(options);*/
     }
 
-    private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, Request_code);
-            return;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 44) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                getCurrentLocation();
-            }
-        }
+    public void switchActivity(View view){
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -212,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
                     JSONObject object = jsonArray.getJSONObject(i);
                     Log.e("jsonobject",object.getString("name"));
                     //restaurantName, restaurantAddress replaces textView
-                    textView.setText(object.getString("name"));
+                    //textView.setText(object.getString("name"));
 
                 }
 
@@ -282,12 +214,16 @@ public class MainActivity extends AppCompatActivity implements RestaurantListAda
     }
 
     @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
+    }
+
+    @Override
     public void onItemCLick(RestaurantModel restaurantModel) {
 
         Intent intent = new Intent(MainActivity.this, RestaurantMenuActivity.class);
         intent.putExtra("RestaurantModel", restaurantModel);
         startActivity(intent);
-
 
     }
 }
